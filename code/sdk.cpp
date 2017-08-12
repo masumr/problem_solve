@@ -1,5 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
 int main(){
-    cout<<"Masum rana"<<endl;
+    string s;
+    cin>>s;
+    cout<<s.size()<<endl;
 }

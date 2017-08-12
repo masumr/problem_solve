@@ -1,34 +1,47 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef long long int ll;
-ll n;
-ll dp[103][100000];
-ll a[9999];
-ll s1;
-ll napscak(ll  i,ll cost,ll s1){
-    if(i==n+1) return 0;
-    if(dp[i][cost]!=-1)return dp[i][cost];
-    ll p1=0,p2=0;
-    if(cost+a[i]<=s1) p1=napscak(i+1,cost+a[i],s1)+a[i];
-    p2=napscak(i+1,cost,s1);
-    dp[i][cost]=max(p1,p2);
-    return dp[i][cost];
+const int N=81;
+string s1,s2;
+int dp[N][N];
+int ed(int l1,int l2){
+    if(l1==0)return l2;
+    else if(l2==0)return l1;
+    if(dp[l1][l2]!=-1)return dp[l1][l2];
+    return dp[l1][l2]=((s1[l1]==s2[l2])?ed(l1-1,l2-1):(1+min(ed(l1-1,l2),min(ed(l1,l2-1),ed(l1-1,l2-1)))));
 }
 int main(){
-    ll t;
-    scanf("%lld",&t);
-    while(t--){
+    while(cin>>s1>>s2){
         memset(dp,-1,sizeof dp);
-        scanf("%lld",&n);
-        ll sum=0;
-        for(ll i=1;i<=n;i++){
-            ll x;
-            scanf("%lld",&a[i]);
-            sum+=a[i];
+        int l1=s1.size(),l2=s2.size();
+        cout<<ed(l1,l2)<<endl;
+        int c=0;
+        //cout<<l1<<' ' <<l2<<endl;
+        while(l1>0 || l2>0){
+            cout<<l1<<' '<<l2<<endl;;
+            if(s1[l1-1]==s2[l2-1]){
+                l1--;l2--;
+                continue;
+            }
+            printf("%d ",++c);
+            if(l1>0 && dp[l1][l2]==dp[l1-1][l2]+1){
+                //cout<<l1<<endl;
+               printf("Delete %d", l1);
+               l1--;
+               s1.erase(l1-1,1);
+            }
+            else if(l2>0 && dp[l1][l2]==dp[l1][l2-1]+1){
+                printf("Insert %d,%c", l1+ 1, s2[l2 - 1]);
+                s1.insert(l1,1,s2[l2-1]);
+                //cout<<l2<<endl;
+                l2--;
+            }
+            else if( l1>0 && l2>0){
+                 printf("Replace %d,%c", l1, s2[l2 - 1]);
+                 s1[l1-1]=s2[l2-1];
+                 l1--;l2--;
+            }
+            printf("\n");
+            if(c==5)break;
         }
-        s1=(sum/2);
-        ll ans=napscak(1,0,s1);
-        cout<<ans<<' '<<sum<<' '<<s1<<endl;
-        printf("%lld\n",sum-(ans*2));
     }
 }

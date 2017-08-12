@@ -1,17 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef unsigned long long int ll;
 int main(){
-    ll n;
-    cin>>n;
-    int count=0;
-    int s1=0;
-    while(n!=1){
-        ll s=n;
-        n=(n/2);
-        if(s%2 && s!=1)s1++;
-        count++;
+    int n=99999;
+    cout<<n<<endl;
+    int s1=1,s2=1;
+    cout<<s1<<' '<<s2<<' ';
+    for(int i=1;i<=n;i++){
+        int tt=s1;
+        s1=s1+s2;
+        s2=s1;
+        cout<<s1<<' ';
     }
-    if(s1%2)count++;
-    cout<<count<<endl;
+    //cout<<"asdjhsad"<<endl;
 }

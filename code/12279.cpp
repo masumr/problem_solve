@@ -1,15 +1,15 @@
-#include<bits/stdc++.h>
-using namespace std;
+#include<cstdio>
 int main(){
-    int n,t=0;
-    while(scanf("%d",&n)==1 and n!=0){
-        int z=0,c=0;
+    int n,c=0;
+    while(scanf("%d",&n) && n){
+        int c1=0,c2=0;
         while(n--){
             int x;
             scanf("%d",&x);
-            if(x==0) z++;
-            else c++;
+            if(x)c1++;
+            else c2++;
         }
-        printf("Case %d: %d\n",++t,c-z);
+        printf("Case %d: %d\n",++c,c1-c2);
     }
+
 }

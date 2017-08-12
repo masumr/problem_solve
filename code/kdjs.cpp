@@ -1,18 +1,43 @@
-#include<bits/stdc++.h>
+#include<iostream>
 using namespace std;
-typedef  long long int ll;
-int main(){
-    ll n;
-    cin>>n;
-    vector<ll>v;
-    for(ll i=1;i*i<=n;i++){
-        if(n%i==0){
-            v.push_back(i);
-            if(n!=n/i)v.push_back(n/i);
+int main()
+{
+    string s;
+    while(cin>>s)
+    {
+        int one=0,zero=0,k=0,l=0,m=0;
+        for(int i=0;i<s.size();i++)
+        {
+            if(s[i]=='1')
+            {
+                while(s[i]=='1')
+                {
+                    //cout<<i<<endl;
+                    l++;
+                    i++;
+
+                }
+            }
+            if(s[i]=='0'){
+                while(s[i]=='0')
+
+
+            {
+                k++;
+                i++;
+
+            }
+            i--;
+           }
+            if(one<l)
+                one=l;
+            if(zero<k)
+                zero=k;
+            l=0;
+            k=0;
         }
+        int d=max(one,zero);
+        //cout<<"one :"<<one<<"times,zero :"<<zero<<"times"<<endl;
+        cout<<d<<endl;
     }
-    sort(v.begin(),v.end());
-    cout<<v.size()<<endl;
-    //for(int i=0;i<v.size();i++)cout<<v[i]<<' ';
 }
-/*1 2 4 5 8 10 11 20 22 23 40 44 46 55 88 92 110 115 184 220 230 253 440 460 506 920 1012 1265 2024 2530 5060 /1 2 4 5 8 10 11 20 22 23 40 44 46 55 88 92 115 184 253 440 920 1265 2024 2530 5060*/

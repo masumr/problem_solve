@@ -1,9 +1,16 @@
 #include<bits/stdc++.h>
-using namespace std;;
-#define PI acos(-1)
+using namespace std;
+int first_digit(int n,int p){
+    double sk=(double)1.0*p*log10(1.0*n);
+    //cout<<sk<<endl;
+    sk-=floor(sk);
+    sk=pow(10,sk);
+    while(sk<100)sk*=10;
+    return sk;
+}
 int main(){
-    double a;
-    while(cin>>a){
-        cout<<a*a*(1-sqrt(3)+PI/3)<<" "<<a*a*(2*sqrt(3)-4+PI/3)<<" "<<a*a*(4-2*PI/3-sqrt(3))<<endl;
+    int n,p;
+    while(scanf("%d%d",&n,&p)==2){
+        cout<<first_digit(n,p)<<endl;;
     }
 }

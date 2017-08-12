@@ -1,6 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int N=80019;
+const int N=800019;
 vector<int>ed[N];
 int vis[N];
 int dis[N];
@@ -29,12 +29,12 @@ void bfs(int s){
 }
 int main(){
     //int kkk=1000000000;
-    //cout<<kkk+55555<<endl;
+    //cout<<kkk+1<<endl;
     int t,c=0;
     scanf("%d",&t);
     while(t--){
         int n,e;
-        scanf("%d%d",&n,&e);
+        cin>>n>>e;
         for(int i=0;i<e;i++)scanf("%d",&cost[i]);
         for(int i=0;i<n;i++){
             int x,y;
@@ -45,16 +45,16 @@ int main(){
         int s,ee;
         scanf("%d%d",&s,&ee);
         bfs(s);
-       //for(int i=1;i<=e;i++)cout<<dis[i]<<' ';
+        //for(int i=0;i<=e;i++)cout<<dis[i]<<' ';
         //cout<<endl;
         //cout<<dis[ee]<<endl;
         printf("Case %d: ",++c);
-        if(vis[ee]==-1 || n==0)printf("Path not found\n");
+        if(!vis[ee] && n==0)printf("Path not found\n");
         else{
             int len=dis[ee];
             int co=cost[ee-1];
             //cout<<co<<' '<<len<<endl;
-            if(len>co)printf("Don’t travel\n");
+            if(len>co)printf("Don't travel\n");
             else printf("%d\n",co-len);
         }
         printf("\n");

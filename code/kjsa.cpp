@@ -1,33 +1,17 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int N=123456;
-vector<int>ed[N];
-int vis[N];
-int ss[N];
-int x;
-void dfs(int s,int c){
-    if(ss[s]==0)c=0;
-    c+=ss[s];
-    if(c>x)return;
-    vis[s]=1;
-    for(int i=0;i<ed[s].size();i++)
-    if(!vis[ed[s][i]])dfs(ed[s][i],c);
-}
 int main(){
+    int a[]={4,7,44,47,74,77,444,447,474,477,777,774,747,744};
+    sort(a,a+14);
     int n;
-    cin>>n>>x;
-    for(int i=1;i<=n;i++)cin>>ss[i];
-    memset(vis,0,sizeof vis);
-    for(int i=1;i<n;i++){
-        int u,v;
-        cin>>u>>v;
-        ed[v].push_back(u);
-        ed[u].push_back(v);
+    cin>>n;
+    bool ck=0;
+    for(int i=0;i<14;i++){
+        if(n%a[i]==0){
+            ck=1;
+            break;
+        }
     }
-    dfs(1,0);
-    int count=0;
-    for(int i=2;i<=n;i++){
-        if(ed[i].size()==1 && vis[i]==1)count++;
-    }
-    cout<<count<<endl;
+    if(ck)cout<<"YES"<<endl;
+    else cout<<"NO"<<endl;
 }

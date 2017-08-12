@@ -1,32 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main()
-{
-    char a[40];
-    while(cin>>a)
-    {
-        int x=strlen(a);
-        for(int i=0;i<x;i++)
-        {
-            if(a[i]=='A' || a[i]=='B' || a[i]=='C')
-                cout<<2;
-            else if(a[i]=='D'|| a[i]=='E' || a[i]=='F')
-                cout<<3;
-            else if(a[i]=='G'|| a[i]=='H' || a[i]=='I')
-                cout<<4;
-            else if(a[i]=='J'|| a[i]=='K' || a[i]=='L')
-                cout<<5;
-            else if(a[i]=='M'|| a[i]=='N' || a[i]=='O')
-                cout<<6;
-            else if(a[i]=='P'|| a[i]=='Q' || a[i]=='R' || a[i]=='S')
-                cout<<7;
-            else if(a[i]=='T'|| a[i]=='U' || a[i]=='V')
-                cout<<8;
-            else if(a[i]=='W'|| a[i]=='X' || a[i]=='Y' || a[i]=='Z')
-                cout<<9;
-            else
-                cout<<a[i];
+map<char,int>mp;
+int main(){
+    string s;
+    mp['A']=2;mp['B']=2;mp['C']=2;
+    mp['D']=3;mp['E']=3;mp['F']=3;
+    mp['G']=4;mp['H']=4;mp['I']=4;
+    mp['J']=5;mp['K']=5;mp['L']=5;
+    mp['M']=6;mp['N']=6;mp['O']=6;
+    mp['P']=7;mp['Q']=7;mp['R']=7;mp['S']=7;
+    mp['T']=8;mp['U']=8;mp['V']=8;
+    mp['W']=9;mp['X']=9;mp['Y']=9;mp['Z']=9;
+    while(cin>>s){
+        for(int i=0;i<s.size();i++){
+            if(s[i]>='A' && s[i]<='Z')printf("%d",mp[s[i]]);
+            else printf("%c",s[i]);
         }
-        cout<<endl;
+        printf("\n");
     }
 }

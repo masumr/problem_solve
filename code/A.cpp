@@ -1,56 +1,21 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int nn=20005;
-vector<int> adj[nn];
-int color[nn];
-enum {NOT_VISITED,BLACK,RED};
+const int N=212345;
+typedef long long int ll;
+ll a[N];
 int main(){
-	//int m,x, y, q, value, node;
-	int t,c=0;
-	scanf("%d",&t);
-	while(t--){
-        int n;
-		scanf("%d", &n);
-		memset(color, 0, sizeof color);
-		for(int i=0;i<nn;i++)adj[i].clear();
-		for(int i=0;i<n;i++){
-		    int x,y;
-			scanf("%d %d", &x, &y);
-			adj[x].push_back(y);
-			adj[y].push_back(x);
-		}
-		int mx = 0;
-		for(int i = 0;i <nn; i++){
-			if(!adj[i].empty() && color[i] ==NOT_VISITED){
-				int black = 0, red = 0;
-				queue<int> q;
-				q.push(i);
-				color[i] =BLACK;
-				black++;
-				while(!q.empty()){
-					int node = q.front();
-					q.pop();
-					for(vector<int>::iterator it = adj[node].begin(); it != adj[node].end(); it++){
-						if(color[*it] == NOT_VISITED){
-							q.push(*it);
-							if(color[node] == BLACK){
-								color[*it] = RED;
-								red++;
-							}
-							else{
-								color[*it] = BLACK;
-								black++;
-							}
-						}
-					}
-				}
-				mx += max(red, black);
-			}
-		}
-
-		printf("Case %d: %d\n",++c,mx);
-	}
-
-	return 0;
+    int n;
+    scanf("%d",&n);
+    for(int i=0;i<n;i++)scanf("%lld",&a[i]);
+    sort(a,a+n);
+    ll mx=12345678765543;
+    for(int i=1;i<n;i++){
+        mx=min(mx,a[i]-a[i-1]);
+    }
+    int cnt=0;
+    for(int i=1;i<n;i++){
+        ll sum=a[i]-a[i-1];
+        if(sum==mx)cnt++;
+    }
+    printf("%lld %d\n",mx,cnt);
 }
-

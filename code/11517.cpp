@@ -1,24 +1,18 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-const int N=10000;
-int main() {
-    int t, c,n, i, j;
-    int dp[N+5], coin[105];
-    cin >>t;
-    while (t--) {
-        cin >>c>>n;
-        for (i=1;i<=n; i++)
-            cin >> coin[i];
-        for (i=1;i<=N; i++)
-            dp[i] = N;
-        dp[0] = 0;
-        sort(coin+1, coin+n+1);
-        for (i=1; i<=n; i++)
-            for (j=N; j>=0; j--)
-                if (j+coin[i]<=N && dp[j+coin[i]]>dp[j]+1)
-                    dp[j+coin[i]] = dp[j]+1;
-        for (i=c; i<=N; i++)
-            if (dp[i]!=N) break;
-        printf("%d %d\n", i, dp[i]);
-    }
+typedef long long int ll;
+ll a[13];
+ll sod(ll n){
+    if(n<10)return (n*(n+1))/2;
+    int d=log10(n);
+    //memset(a,0,sizeof a);
+    a[1]=45;
+    for(int i=2;i<=d;i++)a[i]=a[i-1]*10+45*ceil(pow(10,i-1));
+    ll p=ceil(pow(10,d));
+    int msd=n/p;
+    return msd*a[d]+(msd*(msd-1))/2*p+msd*(1+n%p)+sod(n%p);
+}
+int main(){
+    ll n,m;
+    while(scanf("%lld%lld",&n,&m) &&(n || m))printf("%lld\n",sod(m)-sod(n-1));
 }

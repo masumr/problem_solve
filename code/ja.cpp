@@ -1,13 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main()
-{
-    long long a,b;
-    int i,t;
-    cin>>t;
-    for(int i=1;i<=t;i++)
-    {
-        scanf("%lld%lld",&a,&b);
-        printf("Case %d: %lld\n",i,abs((a-b)-1));
-    }
+int main(){
+    string s;
+    getline(cin,s);
+    stringstream ss(s);
+    int num;
+    vector<int>v;
+    while(ss>>num)v.push_back(num);
+    for(int i=0;i<v.size();i++)cout<<v[i]<<' ';
 }

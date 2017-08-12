@@ -1,67 +1,115 @@
-#include<bits/stdc++.h>
+#include <vector>
+#include <string>
+#include <iostream>
+#include <queue>
+#include <cstdio>
+#include<string.h>
 using namespace std;
-#define pii pair<int,int>
-char a[100][100];
-int dis[1000][1000];
-int vis[1000][1000];
-int dx[]={1,-1,0,0};
-int dy[]={0,0,-1,1};
-int mx=0,mr,mc;
-int c,r;
-void bfs(int x,int y,int c,int r){
-    memset(dis,-1,sizeof dis);
-    memset(vis,0,sizeof vis);
-    queue<pii>q;
-    q.push(pii(x,y));
-    vis[x][y]=1;
-    dis[x][y]=0;
-    while(!q.empty()){
-        pii top=q.front();q.pop();
-        for(int i=0;i<4;i++){
-            int tx=top.first+dx[i];
-            int ty=top.second+dy[i];
-            if(tx>=0 && tx<r && ty>=0 && ty<c && a[tx][ty]!='#' && !vis[tx][ty]){
-                //ncout<<tx<<' '<<ty<<endl;
-                dis[tx][ty]=dis[top.first][top.second]+1;
-                q.push(pii(tx,ty));
-                vis[tx][ty]=1;
+
+bool visited[30][30][30];
+vector< vector < string > > v1;
+int x,y,z;
+
+int di[]={-1,1,0,0,0,0};
+int dj[]={0,0,-1,1,0,0};
+int dk[]={0,0,0,0,-1,1};
+
+struct nodo
+{
+
+    int a;
+    int b;
+    int c;
+    int costo;
+
+    nodo(int x, int y, int z, int w)
+    {
+        a=x;
+        b=y;
+        c=z;
+        costo=w;
+    }
+
+};
+
+void bfs(int a,int b, int c)
+{
+    queue<nodo> Q;
+
+    Q.push(nodo(a,b,c,0));
+
+    memset(visited,false,sizeof(visited));
+
+    visited[a][b][c]=true;
+
+    int j,k,l,I,J,K;
+
+    while(!Q.empty())
+    {
+        nodo aux=Q.front();
+        Q.pop();
+
+        j=aux.a;
+        k=aux.b;
+        l=aux.c;
+        if(v1[l][k][j]=='E')
+        {
+            printf("Escaped in %d minute(s).\n", aux.costo);//;cout<<"Escaped in "<<aux.costo<<" minute(s)."<<endl;
+            return;
+        }
+
+        for(int i=0;i<6;i++)
+        {
+            I=j+di[i];
+            J=k+dj[i];
+            K=l+dk[i];
+            if(I>=0 && I<x && J>=0 && J<y && K>=0 && K<z && !visited[I][J][K] && v1[K][J][I]!='#')
+            {
+                Q.push(nodo(I,J,K,aux.costo + 1));
+                visited[I][J][K]=true;
             }
         }
+
     }
+    printf("Trapped!\n");
+    return;
 }
+
 int main(){
-    int s,c,r;
-    while(cin>>s>>c>>r && (s!=0&&r!=0&& c!=0)){
-        for(int i=0;i<c;i++){
-            for(int j=0;j<r;j++)a[i][j]='#';
+    vector<string> v2;
+    string s;
+    int m,n,p;
+    while(true){
+        scanf("%d %d %d", &z, &y, &x);
+        if(x==0 && y==0 && z==0) break;
+        v1.clear();
+        for(int i=0;i<z;i++){
+
+            v2.clear();
+            for(int j=0;j<y;j++){
+                cin>>s;
+                v2.push_back(s);
+            }
+            v1.push_back(v2);
         }
-        int x,y,x1,y1;
-        for(int i=0;i<s;i++){
-            for(int j=0;j< c;j++){
-                for(int k=0;k<r;k++)
-                {
-                    char s;
-                    cin>>s;
-                    if(s=='.')a[j][k]=s;
-                    if(s=='S'){
-                        a[j][k]=s;
-                        x=j;
-                        y=k;
-                    }
-                    if(s=='E'){
-                        a[j][k]=s;
-                        x1=j;
-                        y1=k;
+        for(int i=0;i<z;i++){
+            for(int j=0;j<y;j++){
+                for(int k=0;k<x;k++){
+                    if(v1[i][j][k]=='S')
+                    {
+                        m=k;
+                        n=j;
+                        p=i;
+                        goto xx;
                     }
                 }
             }
         }
-        for(int i=0;i<c;i++){
-            for(int j=0;j<r;j++)cout<<a[i][j]<<' ';
-            cout<<endl;
-        }
-        bfs(x,y,c,r);
-        cout<<dis[y1][x1]<<endl;
+
+        xx:
+        bfs(m,n,p);
+
     }
 
+    return 0;
 }

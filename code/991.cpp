@@ -1,24 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long int ll;
-int dp[100];
-int c(int n)
-{
-    if(n<=1) return 1;
-    if(dp[n]!=-1) return dp[n];
-    int sum=0;
-    for(int i=0;i<n;i++)
-        sum+=c(i)*c(n-i-1);
-    return sum;
-}
-int main()
-{
-    int n,i=0;
-    memset(dp,-1,sizeof(dp));
-    while(cin>>n){
-        if(i!=0)
-            cout<<endl;
-        cout<<c(n)<<endl;
-        i++;
+ll fact[22];
+int main(){
+    fact[1]=1;
+    for(ll i=2;i<=20;i++){
+        fact[i]=fact[i-1]*i;
+    }
+    int n;
+    while(scanf("%d",&n)==1){
+        ll ans=fact[2*n]/(fact[n]*fact[n]*(n+1));
+        printf("%lld\n",ans);
     }
 }

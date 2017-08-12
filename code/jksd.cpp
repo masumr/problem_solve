@@ -1,24 +1,25 @@
 #include<bits/stdc++.h>
 using namespace std;
+const int N=1234;
+bitset<N>p;
+void sieve(){
+    p[0]=1;p[1]=1;
+    for(int i=4;i<=N;i+=2)p[i]=1;
+    for(int i=3;i*i<=N;i+=2)if(!p[i])for(int j=i*i;j<=N;j+=(i*2))p[j]=1;
+}
 int main(){
-    int t,c=0;
-    cin>>t;
+    int t;
+    sieve();
+    scanf("%d",&t);
     while(t--){
-        int a,n;
-        cin>>a>>n;
-        int x,y,z;
-        printf("Case %d:\n",++c);
-        if(a==0){
-            x=n/3;
-            n-=n/3;
-            y=(n/3)*2;
-            z=n/3;
+        int n;
+        scanf("%d",&n);
+        int sum=0;
+        while(n--){
+            int x;
+            scanf("%d",&x);
+            if(!p[x])sum+=x;
         }
-        else{
-            x=(3*n)/2;
-            y=n*2;
-            z=x*3;
-        }
-        cout<<x<<endl<<y<<endl<<z<<endl;
+        printf("%d\n",sum);
     }
 }

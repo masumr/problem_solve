@@ -1,42 +1,14 @@
-#include <iostream>
-//#include<fstream>
+#include<bits/stdc++.h>
 using namespace std;
-
-int gcd(int a, int b)
-{
-	if(b == 0)
-	{
-	        return a;
-	}
-	else
-	{
-		return gcd(b, a % b);
-	}
+typedef long long int ll;
+int main(){
+    ll l1,r1,l2,r2,k;
+    cin>>l1>>r1>>l2>>r2>>k;
+    l1=max(l1,l2);r1=min(r1,r2);
+    ll dif=(r1-l1+1);
+    //cout<<l1<<' '<<r1<<' '<<dif<<endl;
+    if(k>=l1 && k<=r1)dif--;
+    dif=max(dif,(ll)0);
+    cout<<dif<<endl;
 }
-int extended_gcd(int a,int b)
-{
-	int x,y;
-	if (a%b==0)
-        return (0, 1);
-    (x, y) = extended_gcd(b, a%b);
-    return (y, x-(y*(a/b));
-}
-
-int main()
-{
-     int a,b;
-     //ofstream outf("f://output.txt",ios::out);
-     cout << "Input first number: ";
-	 //outf<< "Input first number: ";
-     cin >> a;
-	 //outf << a<<endl;
-     cout << "Input second number: ";
-	 //outf<<"Input second number: ";
-     cin >> b;
-	 //outf<< b<<endl;
-
-     cout << "Greatest common divisior (GCD) is " << gcd(a,b) << endl;
-	 //outf<<"Greatest common divisior (GCD) is " << gcd(a,b) << endl;
-	 cout<<"The extended Euclid is "<<extended_gcd(a,b)<<endl;
-	 return 0;
-}
+//24648817341102 41165114064236 88046848035 13602161452932 10000831349205

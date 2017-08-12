@@ -1,53 +1,36 @@
 #include<bits/stdc++.h>
 using namespace std;
-vector<string>s1,s2;
-int dp[1007][1007];
-int lcs(int m,int n){
-    if(m==0||n==0)return 0;
-    if(dp[m][n]!=-1) return dp[m][n];
-    if(s1[m-1]==s2[n-1]) return dp[m][n]=1+lcs(m-1,n-1);
-    else return dp[m][n]=max(lcs(m-1,n),lcs(m,n-1));
-}
 int main(){
-    string a,b;
-    int c=0;
-    while(getline(cin,a)){
-        getline(cin,b);
-        memset(dp,-1,sizeof dp);
-        string ss="";
-        for(int i=0;i<a.size();i++){
-            if((a[i]>='a'&& a[i]<='z')||(a[i]>='A' && a[i]<='Z')||(a[i]>='0' && a[i]<='9')){
-                ss+=a[i];
-            }
-            else{
-                s1.push_back(ss);
-                ss="";
-            }
-        }
-        if(ss.size()!=0){
-            s1.push_back(ss);
-        }
-        ss="";
-        for(int i=0;i<b.size();i++){
-            if((b[i]>='a'&& b[i]<='z')||(b[i]>='A' && b[i]<='Z') ||(b[i]>='0' && b[i]<='9')){
-                ss+=b[i];
-            }
-            else{
-                s2.push_back(ss);
-                ss="";
+    string s[51];
+    string s1;
+    int n,m,k;
+    int t;
+    scanf("%d",&t);
+    while(t--){
+        printf("\n");
+        scanf("%d%d",&n,&m);
+        for(int i=0;i<n;i++)
+        {
+            cin>>s[i];
+            for(int j=0;j<m;j++){
+                if(s[i][j]>='A' && s[i][j]<='Z')s[i][j]+=32;
             }
         }
-        if(ss.size()!=0){
-            s2.push_back(ss);
+       // for(int i=0;i<n;i++)cout<<s[i]<<endl;
+        //cout<<endl;
+        scanf("%d",&k);
+        for(int i=0;i<k;i++){
+            cin>>s1;
+            int cc=0;
+            if(s1[0]>='A' &&s1[0]<='Z')s1[0]+=32;
+            for(int l=0;l<n;l++){
+                bool ck=0;
+                for(int j=0;j<m;j++){
+                    if(s[l][j]==s1[0]){printf("%d %d\n",l+1,j+1);ck=1;break;}
+                }
+                if(ck)break;
+            }
         }
-        if(s1.size()==0 || s2.size()==0){
-            printf("%2d. Blank!\n",++c);
-        }
-        else{
-            int len=lcs(s1.size(),s2.size());
-            printf("%2d. Length of longest match: %d\n",++c,len);
-        }
-        s1.clear();
-        s2.clear();
+        //if(t)printf("\n");
     }
 }

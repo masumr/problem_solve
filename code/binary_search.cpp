@@ -1,32 +1,19 @@
-#include<bits/stdc++.h>
-using namespace std;
-const int size=10;
-int array[size]={11,22,33,44,55,66,77,88,99,110};
-int count=0;
-int binary_search(int lo,int hi,int value)
-{
+#include<stdio.h>
+const int N=10000;
+int a[N];
+bool binary_search(int lo,int hi,int n){
+    if(lo>hi)return false;
+    if(lo==hi)return true;
     int mid=(lo+hi)/2;
-    cout<<"midindex value: "<<array[mid]<<endl;
-    if(array[mid]==value)
-        return mid;
-    else{
-        if(lo>=hi)
-            return -1;
-        else
-        {
-            if(array[mid]>value){
-                binary_search(lo,mid-1,value);
-            }
-            else
-                binary_search(mid+1,hi,value);
-        }
-    }
+    if(a[mid]>n)return binary_search(lo,mid-1,n);
+    else return binary_search(mid+1,hi,n);
 }
-int main()
-{
-    int result=binary_search(0,size-1,77);
-    if(result<0)
-        printf("search by  and this value not found\n");
-    else
-        printf("search by  and this value found\n");
+int main(){
+    int n,t;
+    scanf("%d",&t);
+    for(int i=0;i<t;i++)
+        scanf("%d",&a[i]);
+    scanf("%d",&n);
+    if(binary_search(0,t-1,n)==0)printf("NOT FOUND\n");
+    else printf("FOUND\n");
 }

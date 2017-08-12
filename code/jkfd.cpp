@@ -1,12 +1,14 @@
 #include<bits/stdc++.h>
 using namespace std;
 int main(){
-    int n;
-    string a;
-    cin>>n>>a;
-    int c1,c2,count=0;
-    for(int i=3;i<a.size();i++){
-        if(i%n==0)if(a[i-1]==a[i-2]&& a[i-1]==a[i-3])count++;
+    int t,c=0;
+    scanf("%d",&t);
+    while(t--){
+        int n;
+        scanf("%d",&n);
+        printf("Case %d:\n",++c);
+        for(int i=1;i<=10;i++){
+            printf("%d X %d = %d\n",n,i,n*i);
+        }
     }
-    cout<<count<<endl;
 }

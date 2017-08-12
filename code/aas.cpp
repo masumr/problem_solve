@@ -1,21 +1,32 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main()
-{
-    string a;
-    int t;
-    cin>>t;
-    cin>>a;
-    int x=a.size();
-    int ans=0;
-    for(int j=1;j<=t;j++){
-        for(int i=0;i<x;i++)
-        {
-            string y=a.substr(i,i+1);
-            cout<<y<<endl;
-            ans+=atoi(y.c_str());
-
+bool ck(string s){
+    string sp=s;
+    reverse(sp.begin(),sp.end());
+    if(s==sp)return true;
+    else return false;
+}
+int main(){
+    string s;
+    cin>>s;
+    int l=s.size()-1;
+    bool ckk=0;
+    for(int i=0;i<s.size()/2;i++){
+        if(s[i]!=s[l-i]){
+            char ch=s[i];
+            s[i]=s[l-i];
+            if(ck(s)){
+               ckk=1;
+               break;
+            }
+            s[i]=ch;
         }
-        printf("Case %d: %d\n",j,ans);
+    }
+    string sp=s;
+    reverse(sp.begin(),sp.end());
+    if((ckk))cout<<"YES"<<endl;
+    else {
+        if(l%2==0 && sp==s)cout<<"YES"<<endl;
+        else cout<<"NO"<<endl;
     }
 }

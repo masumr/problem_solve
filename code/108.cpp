@@ -1,30 +1,33 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int mx=1000;
-int grid[mx+5][mx+5],row_sum[mx];
-int main()
-{
-
-    int x;
-    while(scanf("%d",&x)==1){
-     int mx_sum=-100000000;
-    int row=x,column=x;
-    for(int i=1;i<=x;i++)for(int j=1;j<=x;j++)scanf("%d",&grid[i][j]);
-    for(int left_column=1;left_column<=column;left_column++){
-        memset(row_sum,0,sizeof row_sum);
-        for(int right_column=left_column;right_column<=column;right_column++){
-            for(int i=1;i<=row;i++)row_sum[i]+=+grid[i][right_column];
-            for(int i=1;i<=row;i++){
+const int N=102;
+const int inf=INT_MIN;
+int a[N][N];
+int main(){
+    int n;
+    while(scanf("%d",&n)==1){
+        int mx=inf;
+        for(int i=0;i<n;i++)for(int j=0;j<n;j++)scanf("%d",&a[i]);
+        int r_s[N];
+        for(int i=0;i<n;i++){
+            memset(r_s,0,sizeof r_s);
+            for(int r=i;r<n;r++){
+               for(int k=0;k<n;k++){
+                    r_s[k]+=a[k][r];
+                    cout<<r_s[k]<<' ';
+               }
+               cout<<endl;
                 int sum=0;
-                for(int j=i;j<=row;j++){
-                    sum=sum+row_sum[j];
-                    if(sum>mx_sum)
-                    mx_sum=sum;
-                }
+                /*for(int k=0;k<=r;k++){
+                    for(int j=k;j<=r;j++){
+                        sum+=r_s[k];
+                        mx=max(mx,sum);
+                    }
+                }*/
             }
+            cout<<endl;
         }
+        //cout<<endl;
+        printf("%d\n",mx);
     }
-    cout<<mx_sum<<endl;
-    }
-    return 0;
 }
