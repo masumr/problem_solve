@@ -1,49 +1,44 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef long long int ll;
-const int size=1000055;
-bool a[size];
-int b[100000];
-int c[size];
-int n=size;
-void isprime()
-{
-    int m=sqrt(n)+1;
-    a[0]=true;
-    a[1]=true;
-    a[2]=false;
-    for(int i=2;i<=m;i++)
-    {
-        if(a[i]==false){
-            for(int j=i*i;j<=n;j+=i)
-                a[j]=true;
+vector<int>v;
+map<int,int>mp;
+const int size=1000001;
+bitset<size>p;
+void sieve(){
+    v.push_back(2);
+    mp[2]=1;
+    for(int i=3;i<=sqrt(size)+1;i+=2){
+        if(p[i]==0){
+            for(int j=i*i;j<=size;j+=(i<<1))
+                p[j]=1;
         }
     }
-    int k=0;
-    for(int s=0;s<=n;s++)
-    {
-        if(a[s]==false)
-            b[k++]=s;
-    }
-    for(int i=0;i<k;i++)
-    {
-        for(int j=0;j<k;j++)
-        {
-            ll sum=b[i]+b[j];
-            if(sum<=n)
-                c[sum]=b[i];
+    for(int i=3;i<=size;i+=2){
+        if(p[i]==0){
+            mp[i]=1;
+            v.push_back(i);
         }
     }
 }
-int main()
-{
+int main(){
+    sieve();
     int n;
-    memset(c,0,sizeof(c));
-    isprime();
     while(cin>>n){
-        if(c[n]!=0)
-            printf("%d = %d + %d\n",n,c[n],(n-c[n]));
-        else
-            cout<<"Goldbach's conjecture is wrong."<<endl;
+        if(n==0) break;
+        int c1=0,c2=0,s1,s2;
+        for(int i=0;i<=v.size();i++){
+            int sum=n-v[i];
+            if(mp[sum]==1){
+                s1=sum;
+                s2=v[i];
+                c1++;
+                break;
+            }
+            if(n<v[i]){
+                break;
+            }
+        }
+        if(c1) printf("%d = %d + %d\n",n,s1,s2);
+        else cout<<"Goldbach's conjecture is wrong."<<endl;
     }
 }

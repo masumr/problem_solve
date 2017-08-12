@@ -1,43 +1,55 @@
 #include<bits/stdc++.h>
 using namespace std;
-const int size=1001;
-vector<int>node[size];
-int dis[size];
-int vis[size];
-int path[size];
-void bfs(int s){
-    memset(dis,-1,sizeof dis);
-    memset(vis,0,sizeof vis);
-    queue<int>q;
-    q.push(s);
+vector<int>adj[100];
+int visit[100];
+int dis[100];
+int path[100];
+void bfs(int s,int e)
+{
+    queue<int>a;
+    memset(visit,0,sizeof(visit));
+    memset(dis,-1,sizeof(dis));
+    a.push(s);
+    visit[s]=1;
     dis[s]=0;
-    vis[s]=1;
-    while(!q.empty()){
-        int u=q.front();
-        q.pop();
-        for(int i=0;i<node[u].size();i++){
-            int v=node[u][i];
-            if(!vis[v]){
-                vis[v]=1;
+    while(!a.empty())
+    {
+        int u=a.front();
+        a.pop();
+        for(int i=0;i<adj[u].size();i++)
+        {
+            int v=adj[u][i];
+            if(visit[v]==0)
+            {
                 dis[v]=dis[u]+1;
-                q.push(v);
+                visit[v]=1;
+                a.push(v);
+                path[v]=path[u];
             }
         }
-
     }
 }
-int main(){
-    int n,e,u,v;
-    cin>>n>>e;
-    while(e--){
-        cin>>u>>v;
-        node[u].push_back(v);
-        node[v].push_back(u);
+void path_print(int v)
+{
+    if(v>=0)
+        return;
+    path_print(path[v]);
+    cout<<v<<' ';
+}
+int main()
+{
+    int x,y,n;
+    cin>>n;
+    while(n--)
+    {
+        cin>>x>>y;
+        adj[x].push_back(y);
+        adj[y].push_back(x);
     }
-    int s;
-    cin>>s;
-    bfs(s);
-    cin>>e;
-    cout<<dis[e]<<endl;
-
+    int t,u;
+    cin>>t>>u;
+    bfs(t,u);
+    cout<<dis[u];
+    //path_print();
+    //cout<<path_print(u)<<' ';
 }

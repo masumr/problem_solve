@@ -1,12 +1,12 @@
 #include<bits/stdc++.h>
-#include<stdio.h>
 using namespace std;
-int gcd(int a,int b);
-int lcm(int a,int b){return (a/gcd(a,b))*b;}
+#define For(i,b) for(int i=1;i<=b;i++)
+#define IN 10000000
+int a[100][100];
 int main(){
-    int a,b;
-   while(cin>>a>>b){
-    cout<<gcd(a,b)<<endl;
-   }
+    int sum=0;
+    For(i,3)For(j,3) sum+=j;
+    cout<<sum<<endl;
+
+    cout<<endl;
 }
-int gcd(a,b){return (b==0)?a:gcd(b,a%b);}

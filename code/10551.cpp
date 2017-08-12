@@ -1,53 +1,50 @@
 #include<bits/stdc++.h>
 using namespace std;
 typedef long long int ll;
-ll bigmod(ll n,ll p,ll mod){
-    if(p==0)return 1;
-    if(p==1)return n;
-    ll t=bigmod(n,p>>1,mod);
-    t=((t%mod)*(t%mod))%mod;
-    if(p&1)t=((t%mod)*(n%mod))%mod;
+ll ot_con_dec(string n,int b){
+    int x=n.size();
+    int k=x-1;
+    ll sum=0;
+    for(int i=0;i<x;i++)
+        sum+=((n[i]-48)*pow(b,k--));
+    return sum;
+}
+ll power(ll n,ll p,ll m){
+    if(p==0) return 0;
+    if(p==1) return n;
+    ll t=power(n,p>>1,m);
+    t=((t%m)*(t%m))%m;
+    if(p&1) t=((t%m)*(n%m))%m;
     return t;
 }
-ll ot_to_dec(ll n,ll b){
+ll dec_to_ot(ll n,ll b){
     int k=0;
     ll sum=0;
-    while(n){
-        sum+=(pow(b,k)*(n%10));
-        n/=10;
-        k++;
+    while(n!=0){
+        sum+=(n%b)*pow(10,k++);
+        n/=b;
     }
     return sum;
 }
-ll ot_to_dec_m(string s,ll b,ll mod){
+ll ot_con_dec_update(string n,ll b,ll mod){
+    int x=n.size();
+    int k=x-1;
     ll sum=0;
-    int k=0;
-    for(int i=s.size()-1;i>=0;i--){
-        int x=(int)(s[i]-48);
-        //cout<<x<<' ';
-        sum=(sum+(bigmod(b,k,mod)*x))%mod;
-        k++;
+    for(int i=0;i<x;i++){
+        sum+=(((n[i]-48)%mod)*(power(b,k--,mod)%mod))%mod;
+        sum%=mod;
     }
     return sum;
 }
 int main(){
-    int b;
-    string s;
+    string a,b;
     ll n;
-    while(scanf("%d",&b)&& b!=0){
-        cin>>s>>n;
-        ll mod=ot_to_dec(n,b);
-        //cout<<mod<<endl;
-        ll num=ot_to_dec_m(s,b,mod);
-        if(num==0){cout<<0<<endl;
-        continue;
-        }
-        vector<int>v;
-        while(num){
-            v.push_back(num%b);
-            num/=b;
-        }
-        for(int i=v.size()-1;i>=0;i--)cout<<v[i];
-        cout<<endl;v.clear();
+    while(cin>>n){
+        if(n==0) break;
+        cin>>a>>b;
+        ll mod=ot_con_dec(b,n);
+        ll sum=ot_con_dec_update(a,n,mod);
+        cout<<dec_to_ot(sum,n)<<' '<<sum<<endl;
     }
+
 }

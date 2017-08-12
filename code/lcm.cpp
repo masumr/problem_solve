@@ -1,66 +1,83 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef long long unsigned int ll;
-bool Check(unsigned int N,unsigned int pos){return (bool)(N & (1<<pos));}
-unsigned int Set(unsigned int N,unsigned int pos){	return N=N | (1<<pos);}
-const unsigned int size=5761456;
-unsigned int v[size];
-unsigned int status[99999989/32];
-ll mod=pow(2,32);
-unsigned int dp[size];
-unsigned int k;
+typedef long long int ll;
+const int nn=10000003;
+bitset<nn>p;
+vector<ll>v3;
+int k;
+ll v[664600];
+ll v2[664600];
+ll v1[9000];
+ll  x,y;
 void sieve(){
-     unsigned int i,j;
-     unsigned int n=99999989;
-    for(i = 3; i*i<=n; i += 2 ) {
-		 if( Check(status[i/32],i%32)==0){
-	 		 for(j = i*i; j <=n; j += 2*i ){
-				 status[j/32]=Set(status[j/32],j % 32)   ;
-	 		 }
-		 }
-	 }
-    v[k++]=2;
-    for(i=3;i<=n;i+=2){
-        if(Check(status[i/32],i%32)==0)v[k++]=i;
-    }
+    k=1;
+    v[0]=2;
+    for(int i=3;i*i<=nn;i+=2)if(p[i]==0)for(int j=i*i;j<=nn;j+=(i*2))p[j]=1;
+    for(int i=3;i<=nn;i+=2)if(p[i]==0)v[k++]=i;
 }
-ll lcm(unsigned int n){
-    ll sum=1;
-    unsigned int i;
-    for(i=0;v[i]*v[i]<=n;i++){
-        unsigned int temp=n/v[i];
-        while(temp>=v[i]){
-            temp/=v[i];
-            sum*=v[i];
-            sum%=mod;
+void NOD(ll n){
+    x=1;
+    for(int i=0;i<k;i++){
+        ll nn=n;
+        if(n%v[i]==0){
+            int count=0;
+            ll sum=1;
+            while(n%v[i]==0){
+                n/=v[i];
+                sum*=v[i];
+                v1[x++]=sum;
+                //v1[x++]=(nn/v[i]);
+            }
         }
     }
-    return sum;
-}
-unsigned int binary_search(unsigned int lo,unsigned int hi,unsigned int n){
-    if(lo>=hi) return lo;
-    unsigned int mid=(lo+hi)/2;
-    if(v[mid]>=n){
-        return binary_search(lo,mid,n);
+    if(n>1){
+        v1[x++]=n;
+        //v1[x++]=nn/n;
     }
-    else return binary_search(mid+1,hi,n);
+}
+ll gcd(ll a,ll b){return (b==0)?a:gcd(b,a%b);}
+ll lcm(ll a,ll b){
+    return (a/gcd(a,b))*b;
 }
 int main(){
-    k=0;
+    k=1;
     sieve();
-    unsigned int t,c=0;
+    ll n;
+    int t,c=0;
     scanf("%d",&t);
-    dp[0]=2;
-    for(unsigned int i=1;i<k;i++){
-        ll sum=(dp[i-1]*v[i])%mod;
-        dp[i]=(unsigned int) sum;
-    }
     while(t--){
-        unsigned int n;
-        scanf("%d",&n);
-        unsigned int a1=binary_search(0,k-1,n);
-        while(v[a1]>n) a1--;
-        unsigned int  ans=(lcm(n)*dp[a1])%mod;
-        printf("Case %d: %lld\n",++c,ans);
+        scanf("%lld",&n);
+        x=1;
+        NOD(n);
+        set<ll>s;
+        v1[0]=1;
+     //   for(int i=0;i<x;i++)cout<<v1[i]<<' ';cout<<endl;
+        for(int i=0;i<x;i++){
+            s.insert(v1[i]);
+            s.insert(n/v1[i]);
+            for(int j=0;j<x;j++){
+                if(v1[i]%v1[j]!=0&& v1[j]%v1[i]!=0){
+                        s.insert(v1[i]*v1[j]);
+                        s.insert(n/(v1[i]*v1[j]));
+                }
+
+            }
+        }
+        ll k=0;
+        for(set<ll>::iterator it=s.begin();it!=s.end();it++){
+                //cout<<*it<<' ';
+                v2[k++]=(*it);
+        }
+        //for(int i=0;i<k;i++)cout<<v2[i]<<' ';
+        cout<<k<<endl;
+        ll count=0;
+        for(int i=0;i<k;i++){
+            for(int j=i;j<k;j++){
+                ll ans=lcm(v2[i],v2[j]);
+                if(ans==n)count++;
+            }
+        }
+        printf("Case %d: %lld\n",++c,count);
+        s.clear();
     }
 }

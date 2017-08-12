@@ -1,13 +1,41 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main()
-{
-    for(int i=0;i<10;i++)
-    {
-        for(int j=i+1;j<=i+10;j++)
-        {
-            cout<<j<<"\t";
+void multriply(int f[2][2],int m[2][2]){
+    int t[2][2];
+    for(int i=0;i<2;i++){
+        for(int j=0;j<2;j++){
+            t[i][j]=0;
+            for(int k=0;k<2;k++){
+                t[i][j]+=f[i][k]*m[k][j];
+            }
         }
-        cout<<endl;
+    }
+    for(int i=0;i<2;i++){
+        for(int j=0;j<2;j++){
+            f[i][j]=t[i][j];
+        }
+    }
+}
+void power(int f[2][2],int m[2][2],int p){
+    if(p==1) return;
+    power(f,m,p/2);
+    multriply(f,f);
+    if(p&1)multriply(f,m);
+}
+int main(){
+    int f[2][2];
+    for(int i=0;i<2;i++){
+        for(int j=0;j<2;j++){
+            scanf("%d",&f[i][j]);
+        }
+    }
+    int p;
+    scanf("%d",&p);
+    power(f,f,p);
+    for(int i=0;i<2;i++){
+        for(int j=0;j<2;j++){
+            printf("%d ",f[i][j]);
+        }
+        printf("\n");
     }
 }

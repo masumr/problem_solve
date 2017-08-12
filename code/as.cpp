@@ -1,28 +1,42 @@
-#include<bits/stdc++.h>
+#include <iostream>
+//#include<fstream>
 using namespace std;
-int main (){
-    int n,a;
-    while(cin>>n and n!=0){
-        priority_queue<int>pq;
-        int sum=0,i,c=0;
-        for (i=0;i<n;i++){
-            scanf("%d",&a);
-            pq.push(-a);
-        }
-        while(!pq.empty()){
-            cout<<pq.top()<<' ';
-            pq.pop();
-        }
-        cout<<endl;
-        /*for(i=0;i<n-1;i++){
-            int d=-pq.top();
-            pq.pop();
-            int b=-pq.top();
-            pq.pop();
-            c=d+b;
-            sum+=c;
-            pq.push(-c);
-        }
-        cout<<sum<<endl;*/
-    }
+
+int gcd(int a, int b)
+{
+	if(b == 0)
+	{
+	        return a;
+	}
+	else
+	{
+		return gcd(b, a % b);
+	}
+}
+int extended_gcd(int a,int b)
+{
+	int x,y;
+	if (a%b==0)
+        return (0, 1);
+    (x, y) = extended_gcd(b, a%b);
+    return (y, x-(y*(a/b));
+}
+
+int main()
+{
+     int a,b;
+     //ofstream outf("f://output.txt",ios::out);
+     cout << "Input first number: ";
+	 //outf<< "Input first number: ";
+     cin >> a;
+	 //outf << a<<endl;
+     cout << "Input second number: ";
+	 //outf<<"Input second number: ";
+     cin >> b;
+	 //outf<< b<<endl;
+
+     cout << "Greatest common divisior (GCD) is " << gcd(a,b) << endl;
+	 //outf<<"Greatest common divisior (GCD) is " << gcd(a,b) << endl;
+	 cout<<"The extended Euclid is "<<extended_gcd(a,b)<<endl;
+	 return 0;
 }

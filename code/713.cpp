@@ -1,34 +1,31 @@
 #include<bits/stdc++.h>
 using namespace std;
-int main()
-{
+int main(){
     string a,b;
-    int c[300];
-    while(cin>>a>>b)
-    {
+    int t;
+    cin>>t;
+    while(t--){
+        cin>>a>>b;
+        int x=a.size(),y=b.size();
+        if(a.size()<b.size())
+            for(int i=x;i<y;i++) a+='0';
+        else for(int i=y;i<x;i++) b+='0';
         reverse(a.begin(),a.end());
         reverse(b.begin(),b.end());
-        cout<<a<<endl<<b<<endl;
-        int x=a.size()-1;
-        int y=b.size()-1;
-        int sum=0,k=0;
-        char n='0';
-        while(x>=0 && y>=0)
-        {
-            sum=sum+((a[x-1]-n)+(b[y-1]-n));
-            c[k]=sum%10;
-            if(c[k]<0)
-                c[k]*=-1;
-            sum=sum/10;
-            k++;
-            x--;
-            y--;
+        vector<int>v;
+        int temp=0;
+        for(int i=a.size()-1;i>=0;i--){
+            int sum=(a[i]-48)+(b[i]-48)+temp;
+            temp=sum/10;
+            v.push_back(sum%10);
         }
-        cout<<k<<endl;
-        //reverse(c.begin(),c.end());
-        for(int i=0;i<k;i++)
-            cout<<c[i];
+        if(temp>0) v.push_back(temp);
+        int j;
+        for(j=0;j<v.size()-1;j++){
+            if(v[j]!=0) break;
+        }
+        for(int i=j;i<v.size();i++) cout<<v[i];
         cout<<endl;
-
+        v.clear();
     }
 }

@@ -1,12 +1,18 @@
-#include<iostream>
-#include<vector>
+#include<bits/stdc++.h>
 using namespace std;
 int main()
 {
-    vector<int>v(3);
-    v=(12,23);
-    for(int i=0;i<v.size();i++){
-        cout<<v[i]<<" ";
+    list<char>a;
+    int i,t;
+    char n;
+    cin>>t;
+    for(int i=0;i<t;i++)
+    {
+        cin>>n;
+        a.push_front(n);
+        a.push_back(n);
     }
-    cout<<endl;
+    list<char>::iterator it;
+    for(it=a.begin();it!=a.end();it++)
+        cout<<*it<<' ';
 }

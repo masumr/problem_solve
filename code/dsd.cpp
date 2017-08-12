@@ -1,28 +1,42 @@
 #include<bits/stdc++.h>
 using namespace std;
-typedef long long int ll;
+#define MAXS 1000000
+#define MAXSH (MAXS/2)
+#define MAXSQ 5000
+#define isprime(n) (a[n >> 4] & (1<<(((n)>>1)&7))) //works when n is odd
+#define PN 5761455
+char a[MAXS/16+2];
+
+
+
+
+int prime[PN],c;
+
+
+void seive()
+{
+ int i,j;
+ memset(a,255,sizeof(a));
+ a[0]=0xFE;
+ for(i=1;i<MAXSQ;i++)
+  if (a[i>>3]&(1<<(i&7)))
+   for(j=i+i+i+1;j<MAXSH;j+=i+i+1)
+    a[j>>3]&=~(1<<(j&7));
+
+
+ prime[c++]=2;
+ for(i=3;i<MAXS;i+=2)
+ {
+  if(isprime(i))
+  {
+   prime[c++]=i;
+               printf("Total prime:%d %d\n",c,prime[c-1]);
+  }
+ }
+}
+
+
 int main(){
-    int n;
-    cin>>n;
-    vector<ll>v;
-    map<ll,ll>mp;
-    while(n--){
-        ll x;
-        cin>>x;
-        v.push_back(x);
-    }
-    sort(v.begin(),v.end());
-    ll x1=v[0];
-    ll y1=v[(v.size()-1)];
-    for(int i=0;i<v.size();i++){
-        if(x1==v[i])mp[x1]++;
-        else if(y1==v[i])mp[y1]++;
-    }
-    ll sum=0;
-    //cout<<mp[x1]<<' '<<mp[y1]<<endl;
-    if(x1==y1){
-        sum=((mp[x1]*(mp[x1]-1))/2);
-    }
-    else sum=mp[x1]*mp[y1];
-    cout<<y1-x1<<' '<<sum<<endl;
+ seive();
+ return 0;
 }

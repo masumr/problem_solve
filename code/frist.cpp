@@ -2,5 +2,5 @@
 using namespace std;
 int main()
 {
-    cout<<5+6;
+    cout<<7<<endl;
 }

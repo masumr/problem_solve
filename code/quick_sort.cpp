@@ -1,11 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
-
-void quick_sort(int a[],int left,int right)
+void quick_sort(int a[],int lo,int hi)
 {
-    int i=left,j=right;
-    int pivot=a[(left+right)/2];
-    while(i<=right && j>=left)
+    int i=lo,j=hi;
+    int pivot=(a[(lo+hi)/2]);
+    while(lo!=hi)
     {
         while(a[i]<pivot)
             i++;
@@ -16,11 +15,12 @@ void quick_sort(int a[],int left,int right)
             i++;
             j--;
         }
-        else{
-            if(left<j)
-                quick_sort(a,left,j);
-            if(i<right)
-                quick_sort(a,i,right);
+        else
+        {
+            if(i<hi)
+                quick_sort(a,i,hi);
+            if(j>lo)
+                quick_sort(a,lo,j);
             return;
         }
     }
@@ -28,9 +28,11 @@ void quick_sort(int a[],int left,int right)
 int main()
 {
     int a[10];
-    for(int i=0;i<9;i++)
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++)
         cin>>a[i];
-    quick_sort(a,0,8);
-    for(int i=0;i<9;i++)
-        cout<<a[i]<<"\t";
+    quick_sort(a,0,n-1);
+    for(int i=0;i<n;i++)
+        cout<<a[i]<<' ';
 }
